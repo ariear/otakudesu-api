@@ -8,4 +8,20 @@ type episodeType = {
     slug: string | undefined
 };
 
-export { genreType, episodeType };
+type urlType = {
+    provider: string,
+    url: string | undefined
+};
+
+type downloadType = {
+    resolution: string,
+    size: string,
+    urls: urlType[]
+};
+
+export { 
+    genreType,
+    episodeType,
+    urlType,
+    downloadType
+};

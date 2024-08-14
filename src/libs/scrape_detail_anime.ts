@@ -1,5 +1,5 @@
 import { load } from "cheerio";
-import { episodeType, genreType } from "../types/detail_anime";
+import { downloadType, episodeType, genreType, urlType } from "../types/detail_anime";
 
 const detailAnime = (
     detailAnimeScrape: string,
@@ -64,4 +64,55 @@ const classInfoTemplate = (index: number) => {
     return `.infozin .infozingle p:nth-of-type(${index}) span`;
 };
 
-export { detailAnime };
+const detailEps = (detailEpsScrape: string) => {
+    const $ = load(detailEpsScrape);
+
+    const downloadUrls: downloadType[] = [];
+    const downloadUrlsParse = $('.venutama .download ul li').toString().split('</li>');
+    downloadUrlsParse.forEach(download => {
+        const $down = load(download);
+
+        const urls: urlType[] = [];
+        const urlsParse = $down('a').toString().split('</a>');
+        urlsParse.forEach(url => {
+            const $a = load(url);
+            urls.push({
+                provider: $a('a').text(),
+                url: $a('a').attr('href')
+            });
+        });
+        urls.splice(-1);
+
+        downloadUrls.push({
+            resolution: $down('strong').text(),
+            size: $down('i').text(),
+            urls
+        });
+    });
+    downloadUrls.splice(-1);
+
+    const nextprevEps = $('.venutama .prevnext .flir a').toString().split('</a>');
+    nextprevEps.splice(-1);
+    let nextEps: string | undefined | null = '';
+    if ($(nextprevEps[1]).text() == 'Next Eps.') {
+        nextEps = $(nextprevEps[1]).attr('href')?.split('/')[4];
+    } else if ($(nextprevEps[2]).text() == 'Next Eps.') {
+        nextEps = $(nextprevEps[2]).attr('href')?.split('/')[4];
+    } else {
+        nextEps = null;
+    };
+    
+    return {
+        episode: $('.venutama .posttl').text(),
+        anime: {
+            title: $('.venutama .posttl').text().split(' Episode')[0],
+            slug: $('.venutama .prevnext .flir a:eq(1)').attr('href')?.split('/')[4]
+        },
+        next_episode_slug: nextEps,
+        prev_episode_slug: $(nextprevEps[0]).text() == 'Previous Eps.' ? $(nextprevEps[0]).attr('href')?.split('/')[4] : null,
+        stream_url: $('.venutama #pembed iframe').attr('src'),
+        download_urls: downloadUrls
+    };
+};
+
+export { detailAnime, detailEps };

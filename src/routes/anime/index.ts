@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import axios from "axios";
 import { load } from "cheerio";
-import { detailAnime } from "../../libs/scrape_detail_anime";
+import { detailAnime, detailEps } from "../../libs/scrape_detail_anime";
 
 const animeRoute = new Hono();
 
@@ -27,6 +27,22 @@ animeRoute.get('/:slug', async (c) => {
     );
 
     return c.json(detailAnimeResult, 200);
+});
+
+animeRoute.get('/episode/:eps', async (c) => {
+    const { eps } = c.req.param();
+    const { data } = await axios.get(`${process.env.OTAKUDESU_URL}/episode/${eps}`);
+    const $ = load(data);
+
+    const detailEpsScrape = $('#venkonten .venser').toString();
+    if (!detailEpsScrape) {
+        return c.json({
+            message: 'Episode not found'
+        }, 404);
+    };
+    const detailEpsResult = detailEps(detailEpsScrape);
+
+    return c.json(detailEpsResult, 200);
 });
 
 export default animeRoute;
