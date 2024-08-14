@@ -50,10 +50,10 @@ const detailAnime = (
         genres: genres,
         synopsis: $('.sinopc p').text(),
         batch: {
-            slug: $batch('span:nth-of-type(1) a').attr('href')?.split('/')[4],
-            date_upload: $batch('.zeebr').text()
+            slug: $batch('span:nth-of-type(1) a').attr('href')?.split('/')[4] || null,
+            date_upload: $batch('.zeebr').text() || null
         },
-        full_download_slug: $fullDownload('span a').attr('href')?.split('/')[4],
+        full_download_slug: $fullDownload('span a').attr('href')?.split('/')[4] || null,
         episode_list: episodes.reverse()
     };
 
