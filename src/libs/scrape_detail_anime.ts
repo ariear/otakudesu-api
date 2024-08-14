@@ -106,7 +106,7 @@ const detailEps = (detailEpsScrape: string) => {
         episode: $('.venutama .posttl').text(),
         anime: {
             title: $('.venutama .posttl').text().split(' Episode')[0],
-            slug: $('.venutama .prevnext .flir a:eq(1)').attr('href')?.split('/')[4]
+            slug: $('.venutama .prevnext .flir a:eq(1)').text() == 'See All Episodes' ? $('.venutama .prevnext .flir a:eq(1)').attr('href')?.split('/')[4] : $('.venutama .prevnext .flir a:eq(0)').attr('href')?.split('/')[4]
         },
         next_episode_slug: nextEps,
         prev_episode_slug: $(nextprevEps[0]).text() == 'Previous Eps.' ? $(nextprevEps[0]).attr('href')?.split('/')[4] : null,
