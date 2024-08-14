@@ -2,8 +2,31 @@ import { Hono } from "hono";
 import axios from "axios";
 import { load } from "cheerio";
 import { detailAnime, detailEps } from "../../libs/scrape_detail_anime";
+import { searchAnime } from "../../libs/scrape_search_anime";
 
 const animeRoute = new Hono();
+
+animeRoute.get('/search', async (c) => {
+    const { q } = c.req.query();
+    if (!q) {
+        return c.json({
+            message: "Query not found"
+        }, 404);
+    };
+
+    const { data } = await axios.get(`${process.env.OTAKUDESU_URL}/?s=${q}&post_type=anime`);
+    const $ = load(data);
+
+    const searchScrape = $('.vezone .venser .venutama .page .chivsrc li').toString();
+    const searchResult = searchAnime(searchScrape);
+    if (searchResult.length == 0) {
+        return c.json({
+            message: 'Anime not found'
+        });
+    };
+
+    return c.json(searchResult, 200);
+});
 
 animeRoute.get('/:slug', async (c) => {
     const slug = c.req.param('slug');
