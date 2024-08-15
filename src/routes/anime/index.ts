@@ -3,6 +3,7 @@ import axios from "axios";
 import { load } from "cheerio";
 import { detailAnime, detailEps } from "../../libs/scrape_detail_anime";
 import { searchAnime } from "../../libs/scrape_search_anime";
+import { batchAnime } from "../../libs/scrape_batch";
 
 const animeRoute = new Hono();
 
@@ -66,6 +67,22 @@ animeRoute.get('/episode/:eps', async (c) => {
     const detailEpsResult = detailEps(detailEpsScrape);
 
     return c.json(detailEpsResult, 200);
+});
+
+animeRoute.get('/batch/:slug', async (c) => {
+    const { slug } = c.req.param();
+    const { data } = await axios.get(`${process.env.OTAKUDESU_URL}/batch/${slug}`);
+    const $ = load(data);
+
+    const animeScrape = $('#venkonten .venser').toString();
+    if (!animeScrape) {
+        return c.json({
+            message: 'Batch anime not found'
+        }, 404);
+    };
+    const animeResult = batchAnime(animeScrape);
+
+    return c.json(animeResult, 200);
 });
 
 export default animeRoute;
