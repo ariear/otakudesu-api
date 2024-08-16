@@ -22,10 +22,23 @@ An unofficial API from otakudesu. I made this API using the scrapping method wit
 - [UnOfficial Otakudesu API 👀🔥](#unffficial-otakudesu-api-)
   - [Documentation](#documentation)
   - [Installation](#installation)
-  - [Let's Contribute](lets-contribute)
+  - [Let's Contribute](#lets-contribute)
 
 
 ## Documentation
+
+### Param
+| Param | Example | Description |
+|-------|-------|-------|
+| `:page` | `1` | Is the number for pagination |
+| `:slug` | `kusuriya-hitorigoto-sub-indo` `knh-batch-sub-indo` | Is the slug of the title and batch download of the anime |
+| `:eps` | `knh-episode-1-sub-indo` | Is a slug for an anime episode |
+| `?q` | `yahaha` | It is a parameter to search for anime by title |
+
+### Endpoint
+| Endpoint | Method | Example | Description |
+|----------|-------|-------|-------|
+| `/api/home` | GET | `/api/home` | Returns on-going and latest complete anime |
 
 ## Installation
 
