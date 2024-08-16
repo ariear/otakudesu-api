@@ -16,3 +16,38 @@
 ---
 
 An unofficial API from otakudesu. I made this API using the scrapping method with the help of the cheerio library. Hopefully it can help you to develop anime streaming applications 😉.
+
+---
+
+- [UnOfficial Otakudesu API 👀🔥](#unffficial-otakudesu-api-)
+  - [Documentation](#documentation)
+  - [Installation](#installation)
+  - [Let's Contribute](lets-contribute)
+
+
+## Documentation
+
+## Installation
+
+Clone this repo
+
+```sh
+git clone https://github.com/ariear/otakudesu-api.git
+```
+
+Install the depedencies
+
+```sh
+bun install
+```
+
+create `.env` file and fill in `OTAKUDESU_URL=https://otakudesu.cloud`.
+
+Run server
+
+```sh
+bun dev
+```
+
+## Let's Contribute
+You can contribute to this project by creating a pull request or issue.
