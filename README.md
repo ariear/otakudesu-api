@@ -38,7 +38,16 @@ An unofficial API from otakudesu. I made this API using the scrapping method wit
 ### Endpoint
 | Endpoint | Method | Example | Description |
 |----------|-------|-------|-------|
-| `/api/home` | GET | `/api/home` | Returns on-going and latest complete anime |
+| `/api/home` | GET | `/api/home` | Get a list of ongoing and finished anime |
+| `/api/anime-list` | GET | `/api/anime-list` | Get all anime in alphabetical order |
+| `/api/anime/:slug` | GET | `/api/anime/kusuriya-hitorigoto-sub-indo` | Get anime details |
+| `/api/anime/episode/:eps` | GET | `/api/anime/episode/knh-episode-1-sub-indo` | Get episode details of anime, it contains streaming and download links of anime |
+| `/api/anime/batch/:slug` | GET | `/api/anime/batch/knh-batch-sub-indo` | Get link to download anime batch |
+| `/api/anime/search` | GET | `/api/anime/search?q=yahahah` | Search anime by title |
+| `/api/release-schedule` | GET | `/api/release-schedule` | Get anime release schedule |
+| `/api/genre-list` | GET | `/api/genre-list` | Get genre list |
+| `/api/ongoing-anime` | GET | `/api/ongoing-anime` | Get a list of ongoing anime |
+| `/api/complete-anime` | GET | `/api/complete-anime` | Get a list of finished anime |
 
 ## Installation
 
