@@ -7,6 +7,7 @@ import releaseScheduleRoute from "./release_schedule";
 import genreRoute from "./genre_list";
 import ongoingRoute from "./ongoing";
 import completeRoute from "./complete";
+import welcomeRoute from "./home/welcome";
 
 export const routes = (app: Hono) => {
     app.use('/api/*', cors());
@@ -18,4 +19,5 @@ export const routes = (app: Hono) => {
     app.route('/api/genre-list', genreRoute);
     app.route('/api/ongoing-anime', ongoingRoute);
     app.route('/api/complete-anime', completeRoute);
+    app.route('/', welcomeRoute);
 };
