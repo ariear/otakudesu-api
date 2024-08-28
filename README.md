@@ -51,6 +51,12 @@ An unofficial API from otakudesu. I made this API using the scrapping method wit
 
 ## Installation
 
+You can use the docker image below
+
+[![DockerImage](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/r/arieakbarull/otakudesu-api)
+
+#### OR
+
 Clone this repo
 
 ```sh
