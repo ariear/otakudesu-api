@@ -1,0 +1,10 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: otakudesu-api
+    ports:
+      - "3000:3000"
+    environment:
+      - OTAKUDESU_URL=https://otakudesu.cloud
